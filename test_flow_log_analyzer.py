@@ -24,7 +24,7 @@ class TestFlowLogAnalyzer(unittest.TestCase):
         # Simulating a flow log with matching and non-matching entries
         flow_log_data = "2 0 0 0 0 0 25 tcp 10.0.0.1 10.0.0.2 1 1 1 1\n"  # Matches sv_p1
         with patch("builtins.open", mock_open(read_data=flow_log_data)):
-            self.analyzer.process_flow_logs('flow_logs.csv')
+            self.analyzer.process_flow_logs('flow_logs.txt')
 
         # Check the tag counts after processing
         self.assertEqual(self.analyzer.tag_counts['sv_p1'], 1)
@@ -38,7 +38,7 @@ class TestFlowLogAnalyzer(unittest.TestCase):
         flow_log_data = """2 0 0 0 0 0 25 tcp 10.0.0.1 10.0.0.2 1 1 1 1
                            2 0 0 0 0 0 68 udp 10.0.0.1 10.0.0.2 1 1 1 1"""  # Matches sv_p1 and sv_p2
         with patch("builtins.open", mock_open(read_data=flow_log_data)):
-            self.analyzer.process_flow_logs('flow_logs.csv')
+            self.analyzer.process_flow_logs('flow_logs.txt')
 
         # Check the tag counts after processing
         self.assertEqual(self.analyzer.tag_counts['sv_p1'], 1)
@@ -51,7 +51,7 @@ class TestFlowLogAnalyzer(unittest.TestCase):
         # Simulating a log that does not match any tag in the lookup table
         flow_log_data = "2 0 0 0 0 0 9999 tcp 10.0.0.1 10.0.0.2 1 1 1 1"  # No match
         with patch("builtins.open", mock_open(read_data=flow_log_data)):
-            self.analyzer.process_flow_logs('flow_logs.csv')
+            self.analyzer.process_flow_logs('flow_logs.txt')
 
         # Check that the untagged count is incremented
         self.assertEqual(self.analyzer.tag_counts['untagged'], 1)
@@ -64,7 +64,7 @@ class TestFlowLogAnalyzer(unittest.TestCase):
         flow_log_data = """2 0 0 0 0 0 25 tcp 10.0.0.1 10.0.0.2 1 1 1 1
                            2 0 0 0 0 0 68 udp 10.0.0.1 10.0.0.2 1 1 1 1"""
         with patch("builtins.open", mock_open(read_data=flow_log_data)):
-            self.analyzer.process_flow_logs('flow_logs.csv')
+            self.analyzer.process_flow_logs('flow_logs.txt')
 
         # Check if the result file is written correctly
         with patch("builtins.open", mock_open()) as mocked_file:
