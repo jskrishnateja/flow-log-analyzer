@@ -49,22 +49,24 @@ This file contains the flow log lines that are processed by the script. Each lin
    python flow_log_analyzer.py flow_logs.txt lookup_table.csv
 This will process the flow logs and generate the results in a file named output_results.txt.
 
-#### Unit Tests
+### Unit Tests
 The repository contains unit tests to verify the correctness of the script. To run the tests, use the following command:
-   ```bash
-   python -m unittest test_flow_log_analyzer.py
+
+    python -m unittest test_flow_log_analyzer.py
 
 ## Test Cases
-Test processing of a single flow log line (test_process_log):
+
+1. Test processing of a single flow log line (test_process_log):
 This test simulates processing a single flow log line and checks if the corresponding tag is counted correctly.
-Test processing of flow logs with multiple matching tags (test_process_log_multiple_tags):
+2. Test processing of flow logs with multiple matching tags (test_process_log_multiple_tags):
 This test processes multiple flow logs with the same destination port and protocol, and verifies the correct count for matching tags.
-Test that the protocol is normalized to lowercase (test_normalize_protocol):
+3. Test that the protocol is normalized to lowercase (test_normalize_protocol):
 This test ensures that the protocol (e.g., TCP or tcp) is normalized to lowercase before matching.
-Test a scenario where multiple tags are assigned for the same port/protocol combination (test_multiple_tags_for_one_port_protocol):
+4. Test a scenario where multiple tags are assigned for the same port/protocol combination (test_multiple_tags_for_one_port_protocol):
 This test verifies that the analyzer correctly handles cases where multiple tags are associated with the same port/protocol combination.
-Test handling of a log line that does not match any tags in the lookup table (test_untagged_log):
+5. Test handling of a log line that does not match any tags in the lookup table (test_untagged_log):
 This test checks that when a flow log line does not match any tags in the lookup table, the analyzer properly counts it as "untagged".
+
 Example Output
 The results of the analysis will be written to an output_results.txt file, which will contain:
 
@@ -72,8 +74,6 @@ The count of matches for each tag
 The count of matches for each port/protocol combination
 Example output_results.txt:
 
-mathematica
-Copy code
 Count of matches for each tag
 
 Tag Counts:
@@ -90,5 +90,14 @@ Port,Protocol,Count
 443,tcp,2
 25,tcp,1
 68,udp,2
+
+
+
+
+
+
+
+
+
 
 
